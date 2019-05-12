@@ -5,6 +5,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { MainNavigator } from './components/MainNavigator'
+import { lightGray } from './utils/colors'
 
 const Container = createAppContainer(MainNavigator);
 
@@ -23,7 +24,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: lightGray,
     alignItems: 'center',
     justifyContent: 'center',
   },
