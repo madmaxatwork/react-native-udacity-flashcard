@@ -1,21 +1,37 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { getSeedData } from '../utils/api'
-import { white, lightGray } from '../utils/colors'
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import { getDecks } from '../utils/api'
+import { loadDecks } from '../actions'
+import DeckItem from './DeckItem'
+import { white, orange } from '../utils/colors'
 
 
 class DeckLanding extends Component {
-    state = {
-        ready: false,
-        fabIsVisible: true
+
+    componentDidMount() {
+        const { loadDecks } = this.props
+        getDecks().then((decks) => loadDecks(decks))
+    }
+
+    extractor = (item) => item.title;
+
+    onPressItem = (item) => {
+        console.log("item clicked")
+    };
+
+    getItem = ({ item }) => {
+        return (
+            <TouchableOpacity style={styles.item} onPress={() => this.onPressItem(item)}>
+                <DeckItem id={item.title} title={item.title} questions={item.questions} />
+            </TouchableOpacity>
+        )
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.textStyle}>Deck Landing</Text>
-            </View>
-        );
+        const { decks } = this.props
+        const listOfDecks = Object.values(decks)
+        return (<FlatList style={styles.container} data={listOfDecks} extraData={this.state} keyExtractor={this.extractor} renderItem={this.getItem} />)
     }
 }
 
@@ -23,15 +39,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: white,
-        alignItems: 'center',
-        justifyContent: 'center',
+        padding: 15
     },
-    textStyle: {
-        color: lightGray,
-        fontWeight: 'bold',
-        fontSize: 20,
-      },
+    item: {
+        flex: 1,
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 160,
+        margin: 8,
+        borderRadius: 6,
+        backgroundColor: orange,
+        shadowColor: 'rgba(0,0,0,0.20)'
+    }
 });
 
-
-export default DeckLanding;
+function mapStateToProps(decks) {
+    return { decks }
+}
+export default connect(mapStateToProps, { loadDecks })(DeckLanding)

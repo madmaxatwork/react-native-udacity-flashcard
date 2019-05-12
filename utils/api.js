@@ -1,3 +1,6 @@
+import { AsyncStorage } from 'react-native'
+const STORAGE_KEY = 'udacity.decks'
+
 const seedData = {
     React: {
         title: 'React',
@@ -25,4 +28,12 @@ const seedData = {
 
 export const getSeedData = () => {
     return seedData;
+}
+
+function getResult(results) {
+    return (results) ? JSON.parse(results) : getSeedData()
+}
+
+export function getDecks() {
+    return AsyncStorage.getItem(STORAGE_KEY).then(getResult)
 }
