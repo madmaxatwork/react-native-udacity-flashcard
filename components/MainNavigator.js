@@ -1,11 +1,12 @@
 import React from 'react'
-import { createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import Entypo from 'react-native-vector-icons/Entypo';
 import DeckLanding from './DeckLanding'
 import AddNewDeck from './AddNewDeck'
+import { appbar, white } from '../utils/colors'
 
 
-export const BottomTabs = createBottomTabNavigator({
+const BottomTabs = createBottomTabNavigator({
   DeckLanding: {
     screen: DeckLanding,
     navigationOptions: {
@@ -21,6 +22,16 @@ export const BottomTabs = createBottomTabNavigator({
     }
   }
 }, {
+    navigationOptions: {
+      title: 'FalshCards',
+      headerStyle: {
+        backgroundColor: appbar,
+      },
+      headerTintColor: white,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
     tabBarOptions: {
       style: {
         height: 56,
@@ -34,3 +45,10 @@ export const BottomTabs = createBottomTabNavigator({
       }
     }
   })
+
+
+export const MainNavigator = createStackNavigator({
+  Home: {
+    screen: BottomTabs
+  }
+})
