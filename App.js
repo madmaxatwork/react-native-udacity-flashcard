@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
-import DeckLanding from './components/DeckLanding'
-import ActionButton from 'react-native-action-button';
+import { StyleSheet, View, StatusBar } from 'react-native';
+import { createAppContainer } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import { purple } from './utils/colors'
+import { BottomTabs } from './components/MainNavigator'
+import { Constants } from 'expo'
+
+const AppStatusBar = ({ backgroundColor, ...props }) => (
+  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+)
+
+const Container = createAppContainer(BottomTabs);
 
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <DeckLanding />
-        <ActionButton
-          buttonColor="rgba(231,76,60,1)"
-          onPress={() => { alert("hi") }} />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{ flex: 1 }}>
+          <AppStatusBar backgroundColor={purple} barStyle='light-content' />
+          <Container />
+        </View>
+      </Provider>
     );
   }
 }

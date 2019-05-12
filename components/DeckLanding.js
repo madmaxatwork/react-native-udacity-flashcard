@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Slider, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import { getSeedData } from '../utils/api'
-import { AppLoading } from 'expo'
 
 
 class DeckLanding extends Component {
