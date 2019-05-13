@@ -25,7 +25,7 @@ const BottomTabs = createBottomTabNavigator({
   }
 }, {
     navigationOptions: {
-      title: 'FalshCards',
+      title: 'FlashCards',
       headerStyle: {
         backgroundColor: appbar,
       },
