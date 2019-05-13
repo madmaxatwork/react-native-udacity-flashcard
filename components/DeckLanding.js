@@ -17,7 +17,7 @@ class DeckLanding extends Component {
     extractor = (item) => item.title;
 
     onPressItem = (item) => {
-        console.log("item clicked")
+        this.props.navigation.navigate('DeckView', { deckTitle: item.title })
     };
 
     getItem = ({ item }) => {

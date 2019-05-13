@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native';
-import { white, lightGray} from '../utils/colors'
+import { StyleSheet, Text, View, TextInput, Button, ToastAndroid, TouchableOpacity } from 'react-native';
+import { white, lightGray, appbar } from '../utils/colors'
 import { saveDeck } from '../utils/api'
 import { addDeck } from '../actions/index'
 import { connect } from 'react-redux'
@@ -12,11 +12,16 @@ class AddNewDeck extends React.Component {
 
     saveDeckTitle = () => {
         const { text } = this.state;
-        saveDeck(text);
-        this.props.dispatch(addDeck(text));
-        ToastAndroid.show('Deck added successfully', ToastAndroid.SHORT);
-        this.setState({text : ""})
-        this.props.navigation.navigate('DeckLanding')
+        if (text.length) {
+            saveDeck(text);
+            this.props.dispatch(addDeck(text));
+            ToastAndroid.show('Deck added successfully', ToastAndroid.SHORT);
+            this.setState({ text: "" })
+            this.props.navigation.navigate('DeckLanding')
+        }
+        else {
+            ToastAndroid.show('Cannot add Deck without a title', ToastAndroid.SHORT);
+        }
     }
 
 
@@ -26,10 +31,9 @@ class AddNewDeck extends React.Component {
                 <Text style={styles.textStyle}>What is the title of your new deck?</Text>
                 <TextInput style={styles.deckTitleInput} underlineColorAndroid={'transparent'} editable={true} maxLength={100} placeholder="Deck Title"
                     onChangeText={(text) => this.setState({ text: text })} value={this.state.text} />
-                <Button style={styles.btn} onPress={this.saveDeckTitle}
-                    title='submit deck'
-                    color='#292477'>
-                </Button>
+                <TouchableOpacity style={styles.button} onPress={this.saveDeckTitle}>
+                    <Text style={styles.buttonText}>Submit Deck</Text>
+                </TouchableOpacity>
             </View >
         );
     }
@@ -61,6 +65,19 @@ const styles = StyleSheet.create({
         borderColor: lightGray,
         borderRadius: 4,
         width
+    }, buttonText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center'
+    }, button: {
+        padding: 10,
+        height: 45,
+        margin: 10,
+        justifyContent: 'center',
+        paddingLeft: 30,
+        paddingRight: 30,
+        borderRadius: 2,
+        backgroundColor: appbar
     }
 });
 

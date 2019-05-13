@@ -4,6 +4,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import DeckLanding from './DeckLanding'
 import AddNewDeck from './AddNewDeck'
 import { appbar, white } from '../utils/colors'
+import DeckView from './DeckView'
 
 
 const BottomTabs = createBottomTabNavigator({
@@ -50,5 +51,15 @@ const BottomTabs = createBottomTabNavigator({
 export const MainNavigator = createStackNavigator({
   Home: {
     screen: BottomTabs
+  }, DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      title: 'Deck Info',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: appbar
+      },
+      headerBackTitle: null,
+    }
   }
 })

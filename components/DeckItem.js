@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { white } from '../utils/colors'
+import { white, appbar } from '../utils/colors'
 
 class DeckItem extends Component {
     render() {
-        const { title, questions, bigFonts } = this.props;
+        const { title, questions, detailsView } = this.props;
         return (
             <View style={styles.container}>
-                <Text style={styles.deckTitle}>{title}</Text>
-                <Text style={styles.cardCount}>{questions.length} cards</Text>
+                <Text style={[styles.deckTitle, (detailsView) ? { fontSize: 40, color: appbar } : '']}>{title}</Text>
+                <Text style={[styles.cardCount, (detailsView) ? { fontSize: 26, color: appbar } : '']}>{questions.length} cards</Text>
             </View>
         )
     }
