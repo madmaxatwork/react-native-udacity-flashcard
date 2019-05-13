@@ -50,3 +50,12 @@ function getResult(results) {
 export function getDecks() {
     return AsyncStorage.getItem(STORAGE_KEY).then(getResult)
 }
+
+export function addCardToDeck(deckTitle, {question, answer}) {
+    getDecks().then((decks) => {
+      if (decks[deckTitle] && decks[deckTitle]['questions']) {
+        decks[deckTitle]['questions'].push({question, answer})
+      }
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
+    })
+  }

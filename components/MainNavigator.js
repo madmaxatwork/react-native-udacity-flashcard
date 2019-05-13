@@ -3,9 +3,10 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import Entypo from 'react-native-vector-icons/Entypo';
 import DeckLanding from './DeckLanding'
 import AddNewDeck from './AddNewDeck'
-import { appbar, white } from '../utils/colors'
+import { appbar, white, black } from '../utils/colors'
 import DeckView from './DeckView'
-
+import AddCard from './AddCard'
+import Quiz from './Quiz'
 
 const BottomTabs = createBottomTabNavigator({
   DeckLanding: {
@@ -55,6 +56,26 @@ export const MainNavigator = createStackNavigator({
     screen: DeckView,
     navigationOptions: {
       title: 'Deck Info',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: appbar
+      },
+      headerBackTitle: null,
+    }
+  }, AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: 'Add Card',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: appbar
+      },
+      headerBackTitle: null,
+    }
+  }, Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: appbar

@@ -26,7 +26,17 @@ function decks(state = {}, action) {
       break;
 
     case ADD_CARD:
+    {
+      const out = {
+        ...state
+      }
+      if (out[action.deckTitle]) {
+        const {question, answer} = action.card
+        out[action.deckTitle].questions.push({question, answer})
+      }
+      return out
       break;
+    }
 
     default:
       return state

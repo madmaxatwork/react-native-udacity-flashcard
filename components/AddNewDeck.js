@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ToastAndroid, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ToastAndroid, TouchableOpacity } from 'react-native';
 import { white, lightGray, appbar } from '../utils/colors'
 import { saveDeck } from '../utils/api'
 import { addDeck } from '../actions/index'

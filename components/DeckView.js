@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { white, appbar } from '../utils/colors'
 import DeckItem from './DeckItem'
@@ -41,16 +41,9 @@ const styles = StyleSheet.create({
     height: 45,
     margin: 10,
     justifyContent: 'center',
-    ...Platform.select({
-      ios: {
-        borderRadius: 7
-      },
-      android: {
-        paddingLeft: 30,
-        paddingRight: 30,
-        borderRadius: 2
-      }
-    })
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderRadius: 2
   }, item: {
     padding: 20,
     justifyContent: 'center',
