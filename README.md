@@ -20,6 +20,9 @@ $ yarn install
 $ yarn start
 ```
 
+## Testing
+This project has only been tested on an Android Emulator
+
 ## License
 
 This project is licensed under the MIT License. Check the `LICENSE` file.
