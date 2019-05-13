@@ -1,17 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { white, lightGray } from '../utils/colors'
+import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native';
+import { white, lightGray} from '../utils/colors'
+import { saveDeck } from '../utils/api'
+import { addDeck } from '../actions/index'
+import { connect } from 'react-redux'
 
 class AddNewDeck extends React.Component {
     state = {
         text: ""
     }
 
+    saveDeckTitle = () => {
+        const { text } = this.state;
+        saveDeck(text);
+        this.props.dispatch(addDeck(text));
+        ToastAndroid.show('Deck added successfully', ToastAndroid.SHORT);
+        this.setState({text : ""})
+        this.props.navigation.navigate('DeckLanding')
+    }
+
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.textStyle}>What is the title of your new deck?</Text>
-                <TextInput style={styles.deckTitleInput} underlineColorAndroid={'transparent'} editable={true} maxLength={100} placeholder="Deck Title"/>
+                <TextInput style={styles.deckTitleInput} underlineColorAndroid={'transparent'} editable={true} maxLength={100} placeholder="Deck Title"
+                    onChangeText={(text) => this.setState({ text: text })} value={this.state.text} />
+                <Button style={styles.btn} onPress={this.saveDeckTitle}
+                    title='submit deck'
+                    color='#292477'>
+                </Button>
             </View >
         );
     }
@@ -43,7 +61,15 @@ const styles = StyleSheet.create({
         borderColor: lightGray,
         borderRadius: 4,
         width
-      }
+    }
 });
 
-export default (AddNewDeck)
+function mapStateToProps(decks, { navigation }) {
+    return {
+        decks
+    }
+}
+
+function mapDispatchToProps(dispatch) { return { dispatch }; }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewDeck)

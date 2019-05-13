@@ -11,7 +11,16 @@ function decks(state = {}, action) {
       }
 
     case ADD_DECK:
-      break;
+      {
+        const o = {
+          ...state,
+          [action.deckTitle]: {
+            title: action.deckTitle,
+            questions: []
+          }
+        }
+        return o
+      }
 
     case DELETE_DECK:
       break;

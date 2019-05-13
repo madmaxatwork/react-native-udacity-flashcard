@@ -26,6 +26,19 @@ const seedData = {
     }
 }
 
+export function saveDeck(deckTitle) {
+    getDecks().then((decks) => {
+      if (!decks[deckTitle]) {
+        decks[deckTitle] = {
+          title: deckTitle,
+          questions: []
+        }
+        AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
+      }
+    })
+  }
+
+
 export const getSeedData = () => {
     return seedData;
 }
