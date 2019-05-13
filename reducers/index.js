@@ -1,4 +1,4 @@
-import { LOAD_DECKS, ADD_DECK, DELETE_DECK, ADD_CARD } from '../actions'
+import { LOAD_DECKS, ADD_DECK, ADD_CARD } from '../actions'
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -22,21 +22,18 @@ function decks(state = {}, action) {
         return o
       }
 
-    case DELETE_DECK:
-      break;
-
     case ADD_CARD:
-    {
-      const out = {
-        ...state
+      {
+        const out = {
+          ...state
+        }
+        if (out[action.deckTitle]) {
+          const { question, answer } = action.card
+          out[action.deckTitle].questions.push({ question, answer })
+        }
+        return out
+        break;
       }
-      if (out[action.deckTitle]) {
-        const {question, answer} = action.card
-        out[action.deckTitle].questions.push({question, answer})
-      }
-      return out
-      break;
-    }
 
     default:
       return state
