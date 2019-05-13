@@ -3,12 +3,17 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { white, appbar } from '../utils/colors'
 import QuizCard from './QuizCard'
+import {setLocalNotification, clearLocalNotification} from '../utils/notificationHelper'
 
 class Quiz extends Component {
     state = {
         correctCount: 0,
         questionIndex: 0,
     }
+
+    componentDidMount() {
+        clearLocalNotification().then(setLocalNotification)
+      }
 
     restartQuiz() {
         this.setState({ questionIndex: 0, correctCount: 0 })

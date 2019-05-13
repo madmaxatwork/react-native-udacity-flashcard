@@ -17,7 +17,7 @@ class AddNewDeck extends React.Component {
             this.props.dispatch(addDeck(text));
             ToastAndroid.show('Deck added successfully', ToastAndroid.SHORT);
             this.setState({ text: "" })
-            this.props.navigation.navigate('DeckLanding')
+            this.props.navigation.navigate('DeckView', { deckTitle: text })
         }
         else {
             ToastAndroid.show('Cannot add Deck without a title', ToastAndroid.SHORT);
