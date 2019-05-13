@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native'
 import { connect } from 'react-redux'
 import { white, appbar } from '../utils/colors'
 import DeckItem from './DeckItem'
@@ -21,7 +21,7 @@ class DeckView extends Component {
         <TouchableOpacity style={[styles.buttonStyle, styles.addCard]} onPress={() => navigateToAddCard(deck.title)}>
           <Text style={[styles.buttonTextStyle, styles.addCardText]}>Add Card</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.buttonStyle, styles.startQuiz]} onPress={() => navigateToStartQuiz(deck.title)}>
+        <TouchableOpacity style={[styles.buttonStyle, styles.startQuiz]} onPress={() => navigateToStartQuiz(deck, deck.title)}>
           <Text style={[styles.buttonTextStyle, styles.startQuizText]}>Start Quiz</Text>
         </TouchableOpacity>
       </View>
@@ -89,7 +89,14 @@ function mapDispatchToProps(dispatch, { navigation }) {
   return {
     goBack: () => navigation.goBack(),
     navigateToAddCard: (deckTitle) => navigation.navigate('AddCard', { deckTitle: deckTitle }),
-    navigateToStartQuiz: (deckTitle) => navigation.navigate('Quiz', { deckTitle: deckTitle })
+    navigateToStartQuiz: (deck ,deckTitle) => {
+      if (deck.questions.length) {
+        navigation.navigate('Quiz', { deckTitle: deckTitle })
+      }
+      else {
+        ToastAndroid.show('Sorry cannot start quiz as there are no questions added', ToastAndroid.LONG);
+      }
+    }
   }
 
 }
